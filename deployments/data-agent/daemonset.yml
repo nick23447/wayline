@@ -24,7 +24,7 @@ spec:
         - operator: Exists  # run on all nodes including master
       containers:
         - name: data-agent
-          image: 192.168.1.163:5000/wl-data-agent:latest
+          image: cse-lambda1:5000/wl-data-agent:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8082

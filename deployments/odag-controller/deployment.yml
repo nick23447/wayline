@@ -25,10 +25,10 @@ spec:
           operator: Exists
           effect: NoSchedule
       nodeSelector:
-        kubernetes.io/hostname: anrg-2
+        kubernetes.io/hostname: cse-lambda1
       containers:
         - name: odag-controller
-          image: 192.168.1.163:5000/wl-odag-controller:latest
+          image: cse-lambda1:5000/wl-odag-controller:latest
           imagePullPolicy: Always
           resources:
             requests:
@@ -57,7 +57,7 @@ spec:
         # The controller reaches it over the shared pod network at
         # 127.0.0.1:8090 and falls back to built-in HEFT if it is down.
         - name: saga-sidecar
-          image: 192.168.1.163:5000/wl-saga-sidecar:latest
+          image: cse-lambda1:5000/wl-saga-sidecar:latest
           imagePullPolicy: Always
           env:
             # Reproducible scheduling. Python randomizes str hashing per

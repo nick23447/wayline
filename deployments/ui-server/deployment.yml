@@ -21,10 +21,10 @@ spec:
           operator: Exists
           effect: NoSchedule
       nodeSelector:
-        kubernetes.io/hostname: anrg-2
+        kubernetes.io/hostname: cse-lambda1
       containers:
         - name: ui-server
-          image: 192.168.1.163:5000/wl-ui-server:latest
+          image: cse-lambda1:5000/wl-ui-server:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
