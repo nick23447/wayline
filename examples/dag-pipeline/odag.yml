@@ -10,7 +10,7 @@ spec:
   tasks:
     # Stage 1: generate — produces a dataset and sends it downstream.
     - name: generate
-      image: 192.168.1.163:5000/dag-pipeline-generate:latest
+      image: cse-lambda1:5000/dag-pipeline-generate:latest
       command: ["python", "task.py"]
       dependencies: []
       resources:
@@ -20,13 +20,11 @@ spec:
       runtime: 10
       constraints:
         nodeNames:
-          - anrg-1
-          - anrg-3
-          - anrg-5
+          - cse-isha
 
     # Stage 2: transform — receives from generate, transforms, sends to output.
     - name: transform
-      image: 192.168.1.163:5000/dag-pipeline-transform:latest
+      image: cse-lambda1:5000/dag-pipeline-transform:latest
       command: ["python", "task.py"]
       dependencies: ["generate"]
       resources:
@@ -36,13 +34,11 @@ spec:
       runtime: 10
       constraints:
         nodeNames:
-          - anrg-4
-          - anrg-6
-          - anrg-8
+          - cse-lambda1
 
     # Stage 3: output — receives from transform and prints the final result.
     - name: output
-      image: 192.168.1.163:5000/dag-pipeline-output:latest
+      image: cse-lambda1:5000/dag-pipeline-output:latest
       command: ["python", "task.py"]
       dependencies: ["transform"]
       resources:
@@ -52,5 +48,4 @@ spec:
       runtime: 2
       constraints:
         nodeNames:
-          - anrg-7
-          - anrg-9
+          - cse-isha
