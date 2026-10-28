@@ -120,7 +120,6 @@ def main() -> None:
 
     start_time = time.perf_counter()
     do_work(mode, seconds)
-    time.sleep(seconds)
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
 
