@@ -126,7 +126,7 @@ def main() -> None:
 
     send_outputs(task)
     print(f"[fidelity] task={task.name} node={node} mode={mode} "
-      f"planned={seconds:.3f} measured={elapsed:.3f} in_bytes={in_bytes}", flush=True)
+      f"planned={seconds:.3f} measured={elapsed_time:.3f} in_bytes={in_bytes}", flush=True)
     task.close()
 
 if __name__ == "__main__":
