@@ -1,0 +1,16 @@
+{
+  "name": "smoke-diamond",
+  "source": "hand-written, for end-to-end testing",
+  "tasks": {
+    "a": 2.0,
+    "b": 4.0,
+    "c": 3.0,
+    "d": 1.0
+  },
+  "edges": [
+    ["a", "b", 10000000],
+    ["a", "c", 20000000],
+    ["b", "d", 5000000],
+    ["c", "d", 5000000]
+  ]
+}
