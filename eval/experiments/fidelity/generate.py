@@ -12,7 +12,7 @@ HERE = Path(__file__).resolve().parent
 GRAPHS = HERE / "graphs"
 OUT = HERE / "out"
 
-#convert(GRAPHS / "smoke.json", Config(scheduler="heft", C=8), OUT)
+convert(GRAPHS / "smoke.json", Config(scheduler="heft", C=8), OUT)
 convert(GRAPHS / "smoke.json", Config(scheduler="cpop", C=8), OUT)
 
 # A whole dataset, all with the same settings:
