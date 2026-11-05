@@ -296,8 +296,9 @@ def to_template(inst: dict, cfg: Config, order: dict[str, list[str]]) -> str:
 
 def write_outputs(out: Path, template_yaml: str, inst: dict, cfg: Config, schedule: Schedule) -> None:
     """Write out/template.yml, out/instance.json (exact input), out/config.json,
-    and out/prediction.json (makespan + per-task node/start/end from SAGA)."""
-    out.mkdir(parents=True, exist_ok=True)
+    and out/prediction.json (makespan + per-task node/start/end from SAGA), and
+    create out/runs/ for the runs."""
+    (out / "runs").mkdir(parents=True, exist_ok=True)   # run.py saves each run here
 
     prediction = {
         "makespan": schedule.makespan,

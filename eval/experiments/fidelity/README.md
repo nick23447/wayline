@@ -11,14 +11,22 @@ fidelity/
 │   └── task.py
 ├── convert.py         one instance + one Config -> SAGA schedule + ODAGTemplate
 ├── generate.py        edit this: lists the convert() calls you want
+├── run.py             runs templates on Wayline and collects each run (lambda1)
+├── analyze.py         one run -> actual.json + gantt.png (run.py calls it)
 ├── graphs/
 │   └── smoke.json     4-task diamond for end-to-end testing
 └── out/               generated; one folder per graph and Config:
+    ├── run-log.csv    one line per run (run.py)
     └── <graph name>/<run name>/
         ├── template.yml     apply this
         ├── prediction.json  SAGA's makespan + per-task node/start/end
         ├── instance.json    the exact input
-        └── config.json      the exact settings
+        ├── config.json      the exact settings
+        └── runs/<odag name>/
+            ├── status.json  the run as Wayline recorded it
+            ├── logs.txt     every task's log
+            ├── actual.json  same shape as prediction.json, measured
+            └── gantt.png    SAGA's schedule above Wayline's
 ```
 
 ## Instance format (`graphs/*.json`)
@@ -65,12 +73,23 @@ across datasets, since template names include them but not the output folder.
 
 ```bash
 # laptop: edit the convert() calls in generate.py, then schedule + generate
-python generate.py
+PYTHONHASHSEED=0 python generate.py
 
-# lambda1: build image (repo root), then run
+# lambda1: build image (repo root) when task.py changed
 sudo docker build -f eval/experiments/fidelity/task/Dockerfile \
   -t localhost:5000/wl-fidelity-task:latest .
 sudo docker push localhost:5000/wl-fidelity-task:latest
-kubectl apply -f out/<graph name>/<run name>/template.yml
-wayline run <graph name>-<run name> -n wl-runs
+
+# lambda1, from fidelity/ with the venv active: run and collect, one at a time
+python run.py out/<graph name>/<run name> [more folders] --reps 20 --shuffle 1
 ```
+
+For each run, `run.py` applies the template, starts the run, waits for it,
+saves `status.json` and `logs.txt`, deletes the run (Wayline does not clean up
+when profiling is off), then calls `analyze.py`. It stops if another run is
+still active in the namespace. A run that fails or times out is saved and
+logged, not analyzed. To analyze a saved run again:
+`python analyze.py out/<graph>/<run name>/runs/<odag>/status.json`.
+
+Measured makespan = first task start -> last task close (SDK times), not
+Wayline's `status.makespan` (whole seconds, from the first pod).
