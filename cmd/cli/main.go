@@ -387,7 +387,7 @@ func odagStatus(cmd *cobra.Command, args []string) error {
 		return err
 	}
 	phase, _, _ := unstructured.NestedString(obj.Object, "status", "phase")
-	makespan, _, _ := unstructured.NestedFloat64(obj.Object, "status", "makespan")
+	makespan := statusFloat(obj.Object, "status", "makespan")
 	startTime, _, _ := unstructured.NestedString(obj.Object, "status", "startTime")
 	completionTime, _, _ := unstructured.NestedString(obj.Object, "status", "completionTime")
 	message, _, _ := unstructured.NestedString(obj.Object, "status", "message")
@@ -584,7 +584,7 @@ func templateList(cmd *cobra.Command, args []string) error {
 		scheduler, _, _ := unstructured.NestedString(item.Object, "spec", "scheduler")
 		tasks, _, _ := unstructured.NestedSlice(item.Object, "spec", "tasks")
 		runCount, _, _ := unstructured.NestedInt64(item.Object, "status", "runCount")
-		makespan, _, _ := unstructured.NestedFloat64(item.Object, "status", "lastRunMakespan")
+		makespan := statusFloat(item.Object, "status", "lastRunMakespan")
 		age := fmtAge(item.GetCreationTimestamp().Time)
 
 		makespanStr := "-"
@@ -619,7 +619,7 @@ func templateShow(cmd *cobra.Command, args []string) error {
 	runCount, _, _ := unstructured.NestedInt64(obj.Object, "status", "runCount")
 	lastRunName, _, _ := unstructured.NestedString(obj.Object, "status", "lastRunName")
 	lastRunPhase, _, _ := unstructured.NestedString(obj.Object, "status", "lastRunPhase")
-	lastMakespan, _, _ := unstructured.NestedFloat64(obj.Object, "status", "lastRunMakespan")
+	lastMakespan := statusFloat(obj.Object, "status", "lastRunMakespan")
 
 	fmt.Printf("Name:         %s\n", name)
 	fmt.Printf("Namespace:    %s\n", nsOf(cmd))
@@ -805,7 +805,7 @@ func odagListRuns(cmd *cobra.Command, args []string) error {
 		if phase == "" {
 			phase = "Pending"
 		}
-		makespan, _, _ := unstructured.NestedFloat64(item.Object, "status", "makespan")
+		makespan := statusFloat(item.Object, "status", "makespan")
 		makespanStr := "-"
 		if makespan > 0 {
 			makespanStr = fmt.Sprintf("%.1fs", makespan)
@@ -888,4 +888,20 @@ func fmtAge(t time.Time) string {
 	default:
 		return fmt.Sprintf("%dd", int(d.Hours()/24))
 	}
+}
+
+// statusFloat reads a number from an object. Kubernetes stores whole numbers
+// as int64, so NestedFloat64 fails on a makespan like 10.
+func statusFloat(obj map[string]interface{}, fields ...string) float64 {
+	v, found, err := unstructured.NestedFieldNoCopy(obj, fields...)
+	if !found || err != nil {
+		return 0
+	}
+	switch n := v.(type) {
+	case float64:
+		return n
+	case int64:
+		return float64(n)
+	}
+	return 0
 }
