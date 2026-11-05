@@ -1,0 +1,22 @@
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-a/a] [a] WlTask initialized (transport: file)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-a/a] [a] installed 10000000 bytes via local data-agent
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-a/a] [a] handed off push to data-agent (0 remote successor(s))
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-a/a] [a] installed 20000000 bytes via local data-agent
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-a/a] [a] handed off push to data-agent (0 remote successor(s))
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-a/a] [fidelity] task=a node=cse-isha mode=sleep planned=2.000 measured=2.000 in_bytes=0
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-b/b] [b] WlTask initialized (transport: file)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-b/b] [b] read 10000000 bytes from a.to-b (/data/wl-outputs/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6/a.to-b/output)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-b/b] [b] installed 5000000 bytes via local data-agent
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-b/b] [b] handed off push to data-agent (0 remote successor(s))
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-b/b] [fidelity] task=b node=cse-isha mode=sleep planned=4.000 measured=4.000 in_bytes=10000000
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-c/c] [c] WlTask initialized (transport: file)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-c/c] [c] read 20000000 bytes from a.to-c (/data/wl-outputs/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6/a.to-c/output)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-c/c] [c] installed 5000000 bytes via local data-agent
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-c/c] [c] handed off push to data-agent (0 remote successor(s))
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-c/c] [fidelity] task=c node=cse-isha mode=sleep planned=3.000 measured=3.000 in_bytes=20000000
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-d/d] [d] WlTask initialized (transport: file)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-d/d] [d] read 5000000 bytes from b.to-d (/data/wl-outputs/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6/b.to-d/output)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-d/d] [d] read 5000000 bytes from c.to-d (/data/wl-outputs/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6/c.to-d/output)
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-d/d] [d] installed 4 bytes via local data-agent
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-d/d] [d] handed off push to data-agent (0 remote successor(s))
+[pod/smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6-d/d] [fidelity] task=d node=cse-isha mode=sleep planned=1.000 measured=1.000 in_bytes=10000000

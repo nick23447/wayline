@@ -1,0 +1,44 @@
+{
+  "run": "smoke-diamond-heft-c8-sleep-a5faff-run-hzjd6",
+  "makespan": 9.20999002456665,
+  "makespan_from_odag_start": 12.318456888198853,
+  "t0": "2026-11-05T22:58:59.819361448Z",
+  "tasks": {
+    "a": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 0.0,
+      "end": 2.195725917816162,
+      "input_read": 0,
+      "compute": 2.0310065746307373,
+      "handoff": 0.16396856307983398
+    },
+    "b": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 3.1249661445617676,
+      "end": 7.173362970352173,
+      "input_read": 0.0042574405670166016,
+      "compute": 4.015079736709595,
+      "handoff": 0.026133060455322266
+    },
+    "c": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 3.2217860221862793,
+      "end": 6.274099111557007,
+      "input_read": 0.007559299468994141,
+      "compute": 3.0158793926239014,
+      "handoff": 0.025814533233642578
+    },
+    "d": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 8.201340913772583,
+      "end": 9.20999002456665,
+      "input_read": 0.004050731658935547,
+      "compute": 1.0001158714294434,
+      "handoff": 0.001901865005493164
+    }
+  }
+}

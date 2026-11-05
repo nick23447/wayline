@@ -1,0 +1,385 @@
+{
+  "apiVersion": "wl.io/v1",
+  "kind": "ODAG",
+  "metadata": {
+    "creationTimestamp": "2026-11-05T23:04:23Z",
+    "generateName": "smoke-diamond-cpop-c8-sleep-bd6085-run-",
+    "generation": 1,
+    "labels": {
+      "wl.io/run": "2",
+      "wl.io/template": "smoke-diamond-cpop-c8-sleep-bd6085"
+    },
+    "name": "smoke-diamond-cpop-c8-sleep-bd6085-run-g45gg",
+    "namespace": "wl-runs",
+    "resourceVersion": "8845130",
+    "uid": "4469f219-1a29-46dd-9113-94fd4fe7a2c8"
+  },
+  "spec": {
+    "scheduler": "random",
+    "schedulerConfig": {
+      "enactOrder": "order",
+      "nodeOrder": {
+        "cse-isha": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ]
+      },
+      "spreadEpsilon": 0
+    },
+    "tasks": [
+      {
+        "command": [
+          "python",
+          "task.py"
+        ],
+        "constraints": {
+          "nodeNames": [
+            "cse-isha"
+          ]
+        },
+        "dependencies": [],
+        "env": [
+          {
+            "name": "FID_MODE",
+            "value": "sleep"
+          },
+          {
+            "name": "FID_SECONDS",
+            "value": "2.0"
+          },
+          {
+            "name": "FID_SPEED",
+            "value": "cse-lambda1=1.0,cse-isha=1.0"
+          },
+          {
+            "name": "FID_HASH_RATE",
+            "value": "0.0"
+          },
+          {
+            "name": "FID_INPUTS",
+            "value": ""
+          },
+          {
+            "name": "FID_OUTPUTS",
+            "value": "to-b:10000000,to-c:20000000"
+          }
+        ],
+        "image": "cse-lambda1:5000/wl-fidelity-task:latest",
+        "name": "a",
+        "outputs": [
+          {
+            "dataSize": "10000000",
+            "name": "to-b"
+          },
+          {
+            "dataSize": "20000000",
+            "name": "to-c"
+          }
+        ],
+        "resources": {
+          "cpu": "1",
+          "memory": "570Mi"
+        },
+        "runtime": 2,
+        "runtimeProfile": {
+          "cse-isha": 2,
+          "cse-lambda1": 2
+        }
+      },
+      {
+        "command": [
+          "python",
+          "task.py"
+        ],
+        "constraints": {
+          "nodeNames": [
+            "cse-isha"
+          ]
+        },
+        "dependencies": [
+          "a"
+        ],
+        "env": [
+          {
+            "name": "FID_MODE",
+            "value": "sleep"
+          },
+          {
+            "name": "FID_SECONDS",
+            "value": "4.0"
+          },
+          {
+            "name": "FID_SPEED",
+            "value": "cse-lambda1=1.0,cse-isha=1.0"
+          },
+          {
+            "name": "FID_HASH_RATE",
+            "value": "0.0"
+          },
+          {
+            "name": "FID_INPUTS",
+            "value": "a.to-b"
+          },
+          {
+            "name": "FID_OUTPUTS",
+            "value": "to-d:5000000"
+          }
+        ],
+        "image": "cse-lambda1:5000/wl-fidelity-task:latest",
+        "inputs": [
+          {
+            "object": "to-b",
+            "producer": "a"
+          }
+        ],
+        "name": "b",
+        "outputs": [
+          {
+            "dataSize": "5000000",
+            "name": "to-d"
+          }
+        ],
+        "resources": {
+          "cpu": "1",
+          "memory": "541Mi"
+        },
+        "runtime": 4,
+        "runtimeProfile": {
+          "cse-isha": 4,
+          "cse-lambda1": 4
+        }
+      },
+      {
+        "command": [
+          "python",
+          "task.py"
+        ],
+        "constraints": {
+          "nodeNames": [
+            "cse-isha"
+          ]
+        },
+        "dependencies": [
+          "a"
+        ],
+        "env": [
+          {
+            "name": "FID_MODE",
+            "value": "sleep"
+          },
+          {
+            "name": "FID_SECONDS",
+            "value": "3.0"
+          },
+          {
+            "name": "FID_SPEED",
+            "value": "cse-lambda1=1.0,cse-isha=1.0"
+          },
+          {
+            "name": "FID_HASH_RATE",
+            "value": "0.0"
+          },
+          {
+            "name": "FID_INPUTS",
+            "value": "a.to-c"
+          },
+          {
+            "name": "FID_OUTPUTS",
+            "value": "to-d:5000000"
+          }
+        ],
+        "image": "cse-lambda1:5000/wl-fidelity-task:latest",
+        "inputs": [
+          {
+            "object": "to-c",
+            "producer": "a"
+          }
+        ],
+        "name": "c",
+        "outputs": [
+          {
+            "dataSize": "5000000",
+            "name": "to-d"
+          }
+        ],
+        "resources": {
+          "cpu": "1",
+          "memory": "560Mi"
+        },
+        "runtime": 3,
+        "runtimeProfile": {
+          "cse-isha": 3,
+          "cse-lambda1": 3
+        }
+      },
+      {
+        "command": [
+          "python",
+          "task.py"
+        ],
+        "constraints": {
+          "nodeNames": [
+            "cse-isha"
+          ]
+        },
+        "dependencies": [
+          "b",
+          "c"
+        ],
+        "env": [
+          {
+            "name": "FID_MODE",
+            "value": "sleep"
+          },
+          {
+            "name": "FID_SECONDS",
+            "value": "1.0"
+          },
+          {
+            "name": "FID_SPEED",
+            "value": "cse-lambda1=1.0,cse-isha=1.0"
+          },
+          {
+            "name": "FID_HASH_RATE",
+            "value": "0.0"
+          },
+          {
+            "name": "FID_INPUTS",
+            "value": "b.to-d,c.to-d"
+          },
+          {
+            "name": "FID_OUTPUTS",
+            "value": ""
+          }
+        ],
+        "image": "cse-lambda1:5000/wl-fidelity-task:latest",
+        "inputs": [
+          {
+            "object": "to-d",
+            "producer": "b"
+          },
+          {
+            "object": "to-d",
+            "producer": "c"
+          }
+        ],
+        "name": "d",
+        "resources": {
+          "cpu": "1",
+          "memory": "532Mi"
+        },
+        "runtime": 1,
+        "runtimeProfile": {
+          "cse-isha": 1,
+          "cse-lambda1": 1
+        }
+      }
+    ]
+  },
+  "status": {
+    "completionTime": "2026-11-05T23:04:34.859579092Z",
+    "makespan": 9,
+    "message": "",
+    "phase": "Succeeded",
+    "predictedNetworkFlows": [],
+    "predictedTasks": [
+      {
+        "estEnd": 2,
+        "estStart": 0,
+        "name": "a",
+        "node": "cse-isha"
+      },
+      {
+        "estEnd": 6,
+        "estStart": 2,
+        "name": "b",
+        "node": "cse-isha"
+      },
+      {
+        "estEnd": 5,
+        "estStart": 2,
+        "name": "c",
+        "node": "cse-isha"
+      },
+      {
+        "estEnd": 7,
+        "estStart": 6,
+        "name": "d",
+        "node": "cse-isha"
+      }
+    ],
+    "scheduling": {
+      "requested": "random",
+      "used": "random"
+    },
+    "startTime": "2026-11-05T23:04:23.635807069Z",
+    "tasks": [
+      {
+        "completionTime": "2026-11-05T23:04:30Z",
+        "computeSeconds": 3.0153300762176514,
+        "createdTime": "2026-11-05T23:04:26Z",
+        "handoffSeconds": 0.026358842849731445,
+        "inputReadSeconds": 0.007818937301635742,
+        "name": "c",
+        "node": "cse-isha",
+        "phase": "Succeeded",
+        "podName": "smoke-diamond-cpop-c8-sleep-bd6085-run-g45gg-c",
+        "startTime": "2026-11-05T23:04:26Z",
+        "startupSeconds": 0,
+        "state": "ComputeDone",
+        "taskCloseTime": "2026-11-05T23:04:30.224503993Z",
+        "taskStartTime": "2026-11-05T23:04:27.171773672Z"
+      },
+      {
+        "completionTime": "2026-11-05T23:04:26Z",
+        "computeSeconds": 2.0308711528778076,
+        "createdTime": "2026-11-05T23:04:23Z",
+        "handoffSeconds": 0.19981861114501953,
+        "inputReadSeconds": 0,
+        "name": "a",
+        "node": "cse-isha",
+        "phase": "Succeeded",
+        "podName": "smoke-diamond-cpop-c8-sleep-bd6085-run-g45gg-a",
+        "startTime": "2026-11-05T23:04:23Z",
+        "startupSeconds": 0,
+        "state": "ComputeDone",
+        "taskCloseTime": "2026-11-05T23:04:26.451140165Z",
+        "taskStartTime": "2026-11-05T23:04:24.219403266Z"
+      },
+      {
+        "completionTime": "2026-11-05T23:04:31Z",
+        "computeSeconds": 4.014800071716309,
+        "createdTime": "2026-11-05T23:04:26Z",
+        "handoffSeconds": 0.026330232620239258,
+        "inputReadSeconds": 0.004212141036987305,
+        "name": "b",
+        "node": "cse-isha",
+        "phase": "Succeeded",
+        "podName": "smoke-diamond-cpop-c8-sleep-bd6085-run-g45gg-b",
+        "startTime": "2026-11-05T23:04:26Z",
+        "startupSeconds": 0,
+        "state": "ComputeDone",
+        "taskCloseTime": "2026-11-05T23:04:30.995233535Z",
+        "taskStartTime": "2026-11-05T23:04:26.946862697Z"
+      },
+      {
+        "completionTime": "2026-11-05T23:04:32Z",
+        "computeSeconds": 1.0001564025878906,
+        "createdTime": "2026-11-05T23:04:31Z",
+        "handoffSeconds": 0.0027627944946289062,
+        "inputReadSeconds": 0.0046367645263671875,
+        "name": "d",
+        "node": "cse-isha",
+        "phase": "Succeeded",
+        "podName": "smoke-diamond-cpop-c8-sleep-bd6085-run-g45gg-d",
+        "startTime": "2026-11-05T23:04:31Z",
+        "startupSeconds": 0,
+        "state": "ComputeDone",
+        "taskCloseTime": "2026-11-05T23:04:32.958458423Z",
+        "taskStartTime": "2026-11-05T23:04:31.948009252Z"
+      }
+    ]
+  }
+}

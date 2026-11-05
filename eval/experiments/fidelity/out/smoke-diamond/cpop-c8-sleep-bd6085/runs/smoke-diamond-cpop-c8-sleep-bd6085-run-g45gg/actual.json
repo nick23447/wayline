@@ -1,0 +1,44 @@
+{
+  "run": "smoke-diamond-cpop-c8-sleep-bd6085-run-g45gg",
+  "makespan": 8.739054918289185,
+  "makespan_from_odag_start": 9.322650909423828,
+  "t0": "2026-11-05T23:04:24.219403266Z",
+  "tasks": {
+    "a": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 0.0,
+      "end": 2.231736898422241,
+      "input_read": 0,
+      "compute": 2.0308711528778076,
+      "handoff": 0.19981861114501953
+    },
+    "b": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 2.727458953857422,
+      "end": 6.775830030441284,
+      "input_read": 0.004212141036987305,
+      "compute": 4.014800071716309,
+      "handoff": 0.026330232620239258
+    },
+    "c": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 2.9523699283599854,
+      "end": 6.0051000118255615,
+      "input_read": 0.007818937301635742,
+      "compute": 3.0153300762176514,
+      "handoff": 0.026358842849731445
+    },
+    "d": {
+      "node": "cse-isha",
+      "machine": "cse-isha",
+      "start": 7.7286059856414795,
+      "end": 8.739054918289185,
+      "input_read": 0.0046367645263671875,
+      "compute": 1.0001564025878906,
+      "handoff": 0.0027627944946289062
+    }
+  }
+}

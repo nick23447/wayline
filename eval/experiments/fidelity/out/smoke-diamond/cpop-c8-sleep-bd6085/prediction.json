@@ -1,0 +1,29 @@
+{
+  "makespan": 7.000014999999999,
+  "tasks": {
+    "a": {
+      "node": "cse-isha-c6",
+      "machine": "cse-isha",
+      "start": 0.0,
+      "end": 2.0
+    },
+    "b": {
+      "node": "cse-isha-c6",
+      "machine": "cse-isha",
+      "start": 2.0000099999999996,
+      "end": 6.00001
+    },
+    "c": {
+      "node": "cse-isha-c3",
+      "machine": "cse-isha",
+      "start": 2.00002,
+      "end": 5.00002
+    },
+    "d": {
+      "node": "cse-isha-c6",
+      "machine": "cse-isha",
+      "start": 6.000014999999999,
+      "end": 7.000014999999999
+    }
+  }
+}
