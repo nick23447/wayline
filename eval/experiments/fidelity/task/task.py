@@ -4,8 +4,8 @@
 One image serves every task; everything task-specific comes from env vars
 (see ../README.md). Modes:
   sleep  sleep FID_SECONDS / speed[node]          -> compute is exact
-  cpu    hash for FID_SECONDS / speed[node] worth  -> real compute + contention
-         of work, using FID_HASH_RATE
+  cpu    FID_SECONDS * FID_HASH_RATE hashes        -> real compute + contention
+         (fixed work: the machine's real speed sets how long it takes)
 
 Model: eval/experiments/E11/tasks/task.py (same pattern), except payloads
 must be RANDOM bytes: the data agent gzips transfers, so zeros are ~free.
@@ -62,16 +62,17 @@ def read_inputs(task: WlTask) -> int:
         del data
     return total
 
-def do_work(mode: str, seconds: float) -> None:
-    """Spend `seconds` of work (already divided by the node's speed).
+def do_work(mode: str, seconds: float, speed: float) -> None:
+    """Do `seconds` of work, as measured at speed 1.0.
 
-    sleep: time.sleep(seconds)
+    sleep: time.sleep(seconds / speed). Sleeping uses no CPU, so speed is emulated.
     cpu:   seconds * FID_HASH_RATE iterations of
            d = hashlib.sha256(d).digest()   (see E11's spin())
+           Speed is not applied: the machine's real speed already sets the time.
     """
 
     if mode == "sleep":
-        time.sleep(seconds)
+        time.sleep(seconds / speed)
 
     elif mode == "cpu":
         hash_rate = os.environ.get("FID_HASH_RATE", "")
@@ -116,16 +117,16 @@ def main() -> None:
     base = float(os.environ["FID_SECONDS"])
 
     in_bytes = read_inputs(task)
-    seconds = base / node_speed(node)
+    speed = node_speed(node)
 
     start_time = time.perf_counter()
-    do_work(mode, seconds)
+    do_work(mode, base, speed)
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
 
     send_outputs(task)
     print(f"[fidelity] task={task.name} node={node} mode={mode} "
-      f"planned={seconds:.3f} measured={elapsed_time:.3f} in_bytes={in_bytes}", flush=True)
+      f"planned={base / speed:.3f} measured={elapsed_time:.3f} in_bytes={in_bytes}", flush=True)
     task.close()
 
 if __name__ == "__main__":
